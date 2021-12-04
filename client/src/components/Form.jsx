@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import Modal from './Modal.jsx';
+import RestaurantList from './RestaurantList.jsx';
+const axios = require("axios");
+
 
 const Form = () => {
 
-  const initialInputs = { location: '', category: '', rating: '', price: '' }
+  const initialInputs = { location: '', category: '', sort: '', price: '' }
   const [modal, setModal] = useState(false);
   const [inputs, setInput] = useState(initialInputs);
 
@@ -18,12 +21,13 @@ const Form = () => {
     setInput((prevState) => (
       {...prevState, [e.target.name]: e.target.value }
       ))
-  }
 
+  }
   return (
     <div>
       <FormConatiner>
-          <h1>Hmm... 🤔 Where should I eat?</h1>
+          <h1>Hmm... 🤔 Too many choices! </h1>
+          <h2>Where should I eat?</h2>
           <Filter onChange={handleInputChange}>
             <label>
               Location: <input type="text" name="location" />
@@ -32,13 +36,13 @@ const Form = () => {
               Category: <input type="text" name="category" />
             </label> <br></br>
             <label>
-              Ratings:
-              <select name="rating">
-                <option value="ratings">ratings</option>
-                <option value="5">5 </option>
-                <option value="4">4 + </option>
-                <option value="3">3 +</option>
-                <option value="2">2 +</option>
+              Sort By:
+              <select name="sort">
+                <option value="sort by">sort by</option>
+                <option value="best_match"> best match </option>
+                <option value="rating"> rating </option>
+                <option value="review_count"> review count </option>
+                <option value="distance"> distance </option>
               </select>
             </label> <br></br>
             <label>
@@ -51,10 +55,11 @@ const Form = () => {
               </select>
             </label>
           </Filter>
-          <h2>Let's find good place for you!</h2>
-          <SearchButton onClick={() => setModal(!modal)}>Search</SearchButton>
+          <h2>Find one for me!</h2>
+          <SearchButton onClick={toggleModal}>Search</SearchButton>
         </FormConatiner>
-        {modal ? <Modal toggleModal={toggleModal} inputs={inputs}/> : ""}
+        {/* {modal ? <Modal toggleModal={toggleModal} inputs={inputs}/> : ""} */}
+        {modal ? <RestaurantList toggleModal={toggleModal} inputs={inputs}/> : ""}
     </div>
   )
 
