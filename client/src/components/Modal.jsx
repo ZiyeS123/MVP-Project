@@ -4,17 +4,15 @@ import styled from 'styled-components';
 import { useState } from 'react';
 
 const Modal = (props) => {
-  //console.log(props);
   return (
     <div>
       <Background>
         <ModalWrapper>
+          <ImageContainer>image</ImageContainer>
+          <DetailsContainer>details</DetailsContainer>
           <CloseButton>
-            <button onClick={() => { props.toggleMoal()}}>X</button>
+            <button onClick={() => { props.toggleModal() }}>X</button>
           </CloseButton>
-          <ImageContainer>
-
-          </ImageContainer>
 
         </ModalWrapper>
       </Background>
@@ -47,18 +45,26 @@ const ModalWrapper = styled.div`
   background-color: white;
   box-shadow: #f6f7fb 0px 5px 15px;
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   padding: 25px;
   z-index: 9999
 `;
 
 const CloseButton = styled.div`
-  display: flex;
-  justify-content: flex-end;
+  width: 30px;
+  height: 30px;
 `;
 
 const ImageContainer = styled.div`
   width: 300px;
   height: 400px;
   border: solid;
+  margin-right: 30px;
+`
+
+const DetailsContainer = styled.div`
+  width: 500px;
+  height: 400px;
+  border: solid;
+  margin-right: 30px;
 `

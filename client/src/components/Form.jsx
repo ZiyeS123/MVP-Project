@@ -5,26 +5,35 @@ import { useState } from "react";
 import Modal from './Modal.jsx';
 
 const Form = () => {
-  const [modal, setModal] = useState(false);
 
-  const toggleMoal = () => {
+  const initialInputs = { location: '', category: '', rating: '', price: '' }
+  const [modal, setModal] = useState(false);
+  const [inputs, setInput] = useState(initialInputs);
+
+  const toggleModal = () => {
     setModal(!modal);
   };
+
+  const handleInputChange = (e) => {
+    setInput((prevState) => (
+      {...prevState, [e.target.name]: e.target.value }
+      ))
+  }
+
   return (
     <div>
       <FormConatiner>
           <h1>Hmm... 🤔 Where should I eat?</h1>
-          <Filter>
+          <Filter onChange={handleInputChange}>
             <label>
               Location: <input type="text" name="location" />
             </label> <br></br>
             <label>
-
-              Category: <input type="text" name="category" />{" "}
+              Category: <input type="text" name="category" />
             </label> <br></br>
             <label>
               Ratings:
-              <select>
+              <select name="rating">
                 <option value="ratings">ratings</option>
                 <option value="5">5 </option>
                 <option value="4">4 + </option>
@@ -34,7 +43,7 @@ const Form = () => {
             </label> <br></br>
             <label>
               Price:
-              <select>
+              <select  name="price">
                 <option value="price">price</option>
                 <option value="$">$ </option>
                 <option value="$$">$$ </option>
@@ -45,7 +54,7 @@ const Form = () => {
           <h2>Let's find good place for you!</h2>
           <SearchButton onClick={() => setModal(!modal)}>Search</SearchButton>
         </FormConatiner>
-        {modal ? <Modal toggleMoal={toggleMoal} /> : ""}
+        {modal ? <Modal toggleModal={toggleModal} inputs={inputs}/> : ""}
     </div>
   )
 
