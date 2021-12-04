@@ -12,6 +12,9 @@ const Modal = (props) => {
           <CloseButton>
             <button onClick={() => { props.toggleMoal()}}>X</button>
           </CloseButton>
+          <ImageContainer>
+
+          </ImageContainer>
 
         </ModalWrapper>
       </Background>
@@ -53,3 +56,9 @@ const CloseButton = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+
+const ImageContainer = styled.div`
+  width: 300px;
+  height: 400px;
+  border: solid;
+`
