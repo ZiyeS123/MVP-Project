@@ -13,21 +13,41 @@ const Modal = (props) => {
     img: business.image_url,
     name: business.name,
     rating: business.rating,
-    catrgories: business.categories, //array
+    review_count: business.review_count,
+    categories: business.categories, //array
     price: business.price,
-    location: business.location,
+    location: business.location.display_address, //array
     distance: business.distance
   }
   console.log(details);
+
+  const {img, name, rating, categories, price, location, distance, review_count} = details;
+  let category = '';
+  for (let i = 0; i < categories.length; i++) {
+    category = category + categories[i].title + ' · ';
+  }
+  console.log(category);
+  let address = '';
+  location.forEach((element) => { address = address + ' ' + element})
+  console.log(address);
+  let dis = Math.floor(distance);
 
   return (
     <div>
       <Background>
         <ModalWrapper>
-          <ImageContainer url={details.img}></ImageContainer>
-          <DetailsContainer>details</DetailsContainer>
+          <ImageContainer url={img}></ImageContainer>
+          <DetailsContainer>
+            <h3> {name} </h3>
+            <p> Rating: {rating} {'   '} {review_count} </p>
+            <p> {price} {' ·   '} {category} </p>
+            <p> {address} </p>
+            <p> Distance: {dis} m </p>
+            <MoreButton>More Details</MoreButton>
+          </DetailsContainer>
+
           <CloseButton>
-            <Button onClick={() => { props.toggleModal() }}>X</Button>
+            <Button onClick={() => { props.toggleModal() }}>ⓧ</Button>
           </CloseButton>
 
         </ModalWrapper>
@@ -61,20 +81,22 @@ const ModalWrapper = styled.div`
   background-color: white;
   box-shadow: #f6f7fb 0px 5px 15px;
   display: flex;
+  background-color: #fefef3;
   // flex-direction: column;
-  padding: 25px;
+  // padding: 15px;
   z-index: 9999
 `;
 
 const CloseButton = styled.div`
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 `;
 
 const Button = styled.button`
-  background-color: white;
-  border: none;
+  background-color: #fefef3;
+  border: black;
   cursor: pointer;
+  font-size: 20px;
 `
 
 const ImageContainer = styled.div`
@@ -89,7 +111,25 @@ const ImageContainer = styled.div`
 
 const DetailsContainer = styled.div`
   width: 500px;
-  height: 400px;
-  border: solid;
+  height: 380px;
+  // border: solid;
   margin-right: 30px;
+  padding: 10px;
+  // display: felx;
+  // flex-direction: column;
 `
+
+const MoreButton = styled.button`
+  height: 40px;
+  width: 120px;
+  background-color: #e17140;
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid #e17140;
+  color: white;
+  font-size: 18px;
+  &:hover {
+    background-color: white;
+    color: #e17140;
+  }
+`;
