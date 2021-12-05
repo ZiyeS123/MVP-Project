@@ -1,18 +1,65 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from './Modal.jsx';
 import RestaurantList from './RestaurantList.jsx';
+import Star from './Star.jsx'
 const axios = require("axios");
 
 const Favorites = (props) => {
+
+  const [fav, setFav] = useState([]);
+
+  useEffect(() => { getFavData() }, [fav])
+
+  const getFavData = () => {
+    axios.get('restaurants/fav')
+    .then((results) => {
+      setFav(results.data)
+    })
+    .catch((err) => {
+      console.log('ERROR IN getFavData: ', err);
+    })
+  }
+
+  const removeFav = (info) => {
+    axios.post('/restaurants/remove', info)
+    .then((results) => {
+      const index = fav.indexOf(info.yelp)
+      fav.splice(index, 1)
+      alert('Removed!')
+    })
+    .catch((err) => {
+      console.log('ERROR IN removeFav:', err)
+    })
+  }
+  //console.log(fav);
 
   return(
     <div>
     <Background>
       <HomeButton onClick={() => {props.toggleFav()}}>Home</HomeButton>
-      <h1>this is my fav list</h1>
+      <Outer>
+        {fav.map((info, i) => {
+          //console.log(info)
+          const { id, img, business_name, rating, category, price, business_location, distance, review_count, yelp } = info;
+          //console.log('yelp', yelp)
+          return (
+            <Container>
+            <ImageContainer url={img}/>
+            <Details>
+            <h3>{business_name}</h3>
+            <Star rating={rating}/>
+            {/* <p> {price} {' ·   '} {category} </p> */}
+            <p> {business_location} </p>
+            <p> Distance: {distance} m </p>
+            <RemoveButton onClick={() => {removeFav(info)}}>Remove</RemoveButton>
+            </Details>
+            </Container>
+          )
+        })}
+      </Outer>
     </Background>
     </div>
   )
@@ -27,7 +74,7 @@ const Background = styled.div`
   background: #fefef3;
   position: fixed;
   display: flex;
-  justify-content: center;
+  //justify-content: center;
   align-items: center;
   flex-direction: column;
   left: 0;
@@ -38,6 +85,52 @@ const Background = styled.div`
 `;
 
 const HomeButton = styled.button`
+  margin-top: 30px;
   height: 30px;
   width: 100px;
 `
+
+const Outer = styled.div`
+  height: 90%;
+  width: 90%;
+  //border: solid;
+  display: flex;
+  flex-wrap: wrap;
+`
+
+const Container = styled.div`
+  height: 250px;
+  width: 600px;
+  //border: solid;
+  margin-top: 30px;
+  //padding: 10px;
+  display: flex;
+  background-color: white;
+  border-radius: 10px; 10px;
+  box-shadow: #f6f7fb 10px 5px 5px;
+  margin: 15px;
+`
+
+const ImageContainer = styled.div`
+  height: 250px;
+  width: 350px;
+  //border: 1px solid red;
+  background-image: url(${props => props.url || '' });
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+`
+const Details = styled.div`
+  height: 300px;
+  width: 300px;
+  //border: solid;
+  margin-left: 20px;
+`
+
+const RemoveButton = styled.button`
+  height: 25px;
+  width: 100px;
+  //border: 1px solid red;
+  align-self: flex-end;
+`
+
+

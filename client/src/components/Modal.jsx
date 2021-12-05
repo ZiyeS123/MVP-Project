@@ -35,6 +35,7 @@ const Modal = (props) => {
   const dis = Math.floor(distance);
 
   const businessInfo = {
+    img: img,
     business_name: name,
     rating: rating,
     category: category,
@@ -45,7 +46,8 @@ const Modal = (props) => {
     yelp: yelp
   }
 
-  //console.log(fav);
+  console.log(fav);
+
 
   const handleLikeButtonClick = (businessInfo) => {
     const yelp = businessInfo.yelp;
@@ -207,3 +209,4 @@ const LikeButton = styled.button`
     color: white;
   }
 `;
+

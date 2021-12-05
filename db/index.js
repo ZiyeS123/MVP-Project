@@ -12,21 +12,27 @@ connection.connect((err) => {
 });
 
 
-const save = ({ id, business_name, rating, category, price, business_location, distance, review_count, yelp }) => {
+const save = ({ img, business_name, rating, category, price, business_location, distance, review_count, yelp }) => {
   const query =
-    `INSERT INTO favorites (id, business_name, rating, category, price, business_location, distance, review_count, yelp)
+    `INSERT INTO favorites (img, business_name, rating, category, price, business_location, distance, review_count, yelp)
     VALUES(?,?,?,?,?,?,?,?,?)`;
-  const args = [id, business_name, rating, category, price, business_location, distance, review_count, yelp];
+  const args = [img, business_name, rating, category, price, business_location, distance, review_count, yelp];
   return connection.promise().query(query, args);
 };
 
-// const remove = ({ id, title, release_date, vote_count }) => {
-//   const query = "DELETE FROM movies WHERE id=?";
-//   const args = [id];
-//   return connection.promise().query(query, args);
-// };
+const getFav = () => {
+  const query = 'SELECT * FROM favorites';
+  return connection.promise().query(query);
+}
+
+const remove = ({ yelp }) => {
+  const query = `DELETE FROM favorites WHERE yelp=?`;
+  const args = [yelp];
+  return connection.promise().query(query, args);
+};
 
 module.exports.save = save;
-// module.exports.remove = remove;
+module.exports.getFav = getFav;
+module.exports.remove = remove;
 // module.exports.connection = connection;
 // module.exports.connection.connect = connection.connect;

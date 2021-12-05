@@ -25,6 +25,17 @@ app.get('/restaurants', (req, res) => {
     })
 })
 
+
+app.get('/restaurants/fav', (req, res) => {
+  db.getFav()
+  .then((results) => {
+    res.send(results[0])
+  })
+  .catch((err) => {
+    console.log('ERROR IN app.get /restaurants/fav: ', err)
+  })
+})
+
 app.post('/restaurants/add', (req, res) => {
   db.save(req.body)
   .then((results) => {
@@ -33,5 +44,15 @@ app.post('/restaurants/add', (req, res) => {
   .catch((err) => {
     console.log('ERROR IN app.post add: ', err)
   })
+})
 
+app.post('/restaurants/remove', (req, res) => {
+  //console.log(req.body);
+  db.remove(req.body)
+  .then((results) => {
+    res.send(results)
+  })
+  .catch((err) => {
+    console.log('ERROR IN app.post /restaurants/remove: ', err)
+  })
 })
