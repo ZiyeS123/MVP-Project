@@ -32,7 +32,7 @@ const Form = () => {
           <Filter onChange={handleInputChange}>
             <label> Location: </label>
             <Input type="text" name="location" /> <br></br>
-            <label>Category: </label>
+            <label>Name/Category: </label>
             <Input type="text" name="category" /> <br></br>
             <label> Sort By: </label>
             <Select name="sort">
@@ -50,14 +50,11 @@ const Form = () => {
                 <option value="$$$">$$$ </option>
             </Select>
           </Filter>
-          {/* <h2>Find one for me => </h2> */}
           <SearchConatiner>
           <h2>Find one for me >> </h2>
           <SearchButton onClick={toggleModal}>Search</SearchButton>
           </SearchConatiner>
-          {/* <SearchButton onClick={toggleModal}>Search</SearchButton> */}
         </FormConatiner>
-        {/* {modal ? <Modal toggleModal={toggleModal} inputs={inputs}/> : ""} */}
         {modal ? <RestaurantList toggleModal={toggleModal} inputs={inputs}/> : ""}
     </div>
   )

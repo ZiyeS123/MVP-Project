@@ -5,14 +5,22 @@ import { useState } from "react";
 import Modal from "./Modal.jsx";
 import image from "../assets/img1.png";
 import Form from "./Form.jsx";
+import Favorites from "./Favorites.jsx";
 
 const App = () => {
+  const [showFav, setFav] = useState(false);
+
+  const handleFavClick = () => {
+    setFav(!showFav)
+  }
 
   return (
     <div>
       <Outer>
         <ImageConatiner url={image} />
+        <FavButton onClick={handleFavClick}>Fav</FavButton>
         <Form />
+        { showFav && <Favorites toggleFav={handleFavClick} /> }
       </Outer>
     </div>
   );
@@ -30,11 +38,11 @@ const Outer = styled.div`
 `;
 
 const ImageConatiner = styled.div`
-  margin-top: 50px;
+  margin-top: 40px;
   display: flex;
   width: 380px;
   height: 320px;
-  // border: solid;
+  //border: solid;
   background-image: url(${(props) => props.url || ""});
   background-size: 100% 100%;
 `;
@@ -48,3 +56,7 @@ const Title = styled.div`
   border: solid;
 `;
 
+const FavButton = styled.button`
+  height: 30px;
+  width: 100px;
+`
