@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import Modal from './Modal.jsx';
 import RestaurantList from './RestaurantList.jsx';
+import Favorites from './Favorites.jsx'
 const axios = require("axios");
 
 
@@ -23,12 +24,17 @@ const Form = () => {
       ))
 
   }
+
+  const [showFav, setFav] = useState(false);
+
+  const handleFavClick = () => {
+    setFav(!showFav)
+  }
+
   return (
-    //Find open restaurants near you that serve the food you're craving & fit your price range - then spin the roulette wheel to randomly pick one!
+
     <div>
       <FormConatiner>
-          <h1>Hmm... 🤔 Can't decide where to eat? </h1>
-          <p> Find open restaurants near you that serve the food you're craving and fit your price range </p>
           <Filter onChange={handleInputChange}>
             <label> Location: </label>
             <Input type="text" name="location" /> <br></br>
@@ -50,10 +56,17 @@ const Form = () => {
                 <option value="$$$">$$$ </option>
             </Select>
           </Filter>
+          <SearchOuter>
           <SearchConatiner>
-          <h2>Find one for me >> </h2>
+          <h3>Find one for me >>  </h3>
           <SearchButton onClick={toggleModal}>Search</SearchButton>
           </SearchConatiner>
+          <SearchConatiner2>
+          <h3>Checkout My Favorites List >> </h3>
+          <FavButton onClick={handleFavClick}>My Favorites List </FavButton>
+          {showFav && <Favorites toggleFav={handleFavClick} />}
+          </SearchConatiner2>
+          </SearchOuter>
         </FormConatiner>
         {modal ? <RestaurantList toggleModal={toggleModal} inputs={inputs}/> : ""}
     </div>
@@ -64,12 +77,12 @@ const Form = () => {
 export default Form;
 
 const FormConatiner = styled.div`
-  margin-top: 50px;
+  //margin-top: -70px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column;;
   align-items: center;
-  width: 100%;
-  height: 500px;
+  width: 900px;
+  height: 450px;
   //border: solid;
   // background-color: #fff9f4;
 `;
@@ -77,19 +90,28 @@ const FormConatiner = styled.div`
 const Filter = styled.form`
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  margin-right: 60px;
 `;
 
+const SearchOuter = styled.div`
+  height: 300px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  //border: solid;
+`
+
 const SearchButton = styled.button`
-  border
-  height: 40px;
+  margin-left: 60px;
+  height: 30px;
   width: 120px;
-  background-color: #e17140;
+  background-color: #fef9de;
   cursor: pointer;
   text-align: center;
   border: 2px solid #e17140;
-  color: white;
+  color: #e17140;
   font-size: 18px;
+  border-radius: 10px; 10px;
   &:hover {
     background-color: white;
     color: #e17140;
@@ -98,11 +120,21 @@ const SearchButton = styled.button`
 
 const SearchConatiner = styled.div`
   width: 400px;
-  height: 60px;
+  height: 70px;
   //border: solid;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  //justify-content: space-between;
+`
+
+const SearchConatiner2 = styled.div`
+  width: 500px;
+  height: 60px;
+  //border: solid;
+  display: flex;
+  //flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `
 
 const Input = styled.input`
@@ -119,4 +151,19 @@ const Select = styled.select`
   width: 300px;
   height: 25px;
   border-radius: 4px;
+`
+const FavButton = styled.button`
+  height: 30px;
+  width: 180px;
+  background-color: #fef9de;
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid #e17140;
+  color: #e17140;
+  font-size: 18px;
+  &:hover {
+    background-color: white;
+    color: #e17140;
+  }
+  border-radius: 10px; 10px;
 `

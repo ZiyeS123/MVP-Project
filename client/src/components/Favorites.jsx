@@ -34,7 +34,6 @@ const Favorites = (props) => {
       console.log('ERROR IN removeFav:', err)
     })
   }
-  //console.log(fav);
 
   return(
     <div>
@@ -42,20 +41,17 @@ const Favorites = (props) => {
       <HomeButton onClick={() => {props.toggleFav()}}>Home</HomeButton>
       <Outer>
         {fav.map((info, i) => {
-          //console.log(info)
           const { id, img, business_name, rating, category, price, business_location, distance, review_count, yelp } = info;
-          //console.log('yelp', yelp)
           return (
             <Container>
-            <ImageContainer url={img}/>
-            <Details>
-            <h3>{business_name}</h3>
-            <Star rating={rating}/>
-            {/* <p> {price} {' ·   '} {category} </p> */}
-            <p> {business_location} </p>
-            <p> Distance: {distance} m </p>
-            <RemoveButton onClick={() => {removeFav(info)}}>Remove</RemoveButton>
-            </Details>
+              <ImageContainer url={img}/>
+              <Details>
+              <h3>{business_name}</h3>
+              <Star rating={rating}/>
+              <p> {business_location} </p>
+              <p> Distance: {distance} m </p>
+              <RemoveButton onClick={() => {removeFav(info)}}>Remove</RemoveButton>
+              </Details>
             </Container>
           )
         })}
@@ -88,6 +84,18 @@ const HomeButton = styled.button`
   margin-top: 30px;
   height: 30px;
   width: 100px;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid #e17140;
+  color: #e17140;;
+  font-size: 18px;
+  &:hover {
+    background-color: #fef9de;
+    color: #e17140;
+    border: 2px solid #e17140;
+  }
 `
 
 const Outer = styled.div`
@@ -113,7 +121,7 @@ const Container = styled.div`
 
 const ImageContainer = styled.div`
   height: 250px;
-  width: 350px;
+  width: 300px;
   //border: 1px solid red;
   background-image: url(${props => props.url || '' });
   background-repeat: no-repeat;
@@ -131,6 +139,19 @@ const RemoveButton = styled.button`
   width: 100px;
   //border: 1px solid red;
   align-self: flex-end;
+  border-radius: 5px;
+  background-color: #e17140;
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid #e17140;
+  color: white;
+  border: #e17140;;
+  font-size: 18px;
+  &:hover {
+    background-color: white;
+    color: #e17140;
+    border: 2px solid #e17140;
+  }
 `
 
 

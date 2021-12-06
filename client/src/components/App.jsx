@@ -8,19 +8,13 @@ import Form from "./Form.jsx";
 import Favorites from "./Favorites.jsx";
 
 const App = () => {
-  const [showFav, setFav] = useState(false);
-
-  const handleFavClick = () => {
-    setFav(!showFav)
-  }
 
   return (
     <div>
       <Outer>
         <ImageConatiner url={image} />
-        <FavButton onClick={handleFavClick}>Fav</FavButton>
+        <h1>Hmm... 🤔 Can't decide where to eat? </h1>
         <Form />
-        { showFav && <Favorites toggleFav={handleFavClick} /> }
       </Outer>
     </div>
   );
@@ -38,7 +32,7 @@ const Outer = styled.div`
 `;
 
 const ImageConatiner = styled.div`
-  margin-top: 40px;
+  margin-top: 30px;
   display: flex;
   width: 380px;
   height: 320px;
@@ -47,16 +41,19 @@ const ImageConatiner = styled.div`
   background-size: 100% 100%;
 `;
 
-const Title = styled.div`
-  width: 100%;
-  height: 50px;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  border: solid;
-`;
 
 const FavButton = styled.button`
-  height: 30px;
-  width: 100px;
+  height: 40px;
+  width: 200px;
+  background-color: #fef9de;
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid #e17140;
+  color: #e17140;
+  font-size: 18px;
+  &:hover {
+    background-color: white;
+    color: #e17140;
+  }
+  border-radius: 10px; 10px;
 `

@@ -34,5 +34,3 @@ const remove = ({ yelp }) => {
 module.exports.save = save;
 module.exports.getFav = getFav;
 module.exports.remove = remove;
-// module.exports.connection = connection;
-// module.exports.connection.connect = connection.connect;

@@ -46,18 +46,14 @@ const Modal = (props) => {
     yelp: yelp
   }
 
-  console.log(fav);
-
-
   const handleLikeButtonClick = (businessInfo) => {
     const yelp = businessInfo.yelp;
     if (!fav.includes(yelp)) {
-      //console.log('not in fav')
       setFav(fav => [...fav, yelp])
       axios
       .post('/restaurants/add', businessInfo)
       .then((data) => {
-        alert('Add to favorite list!')
+        alert('Add to favorites list!')
       })
       .catch((err)=> {
         console.log('ERROR IN handleLikeButtonClick: ', err)
@@ -71,7 +67,7 @@ const Modal = (props) => {
   return (
     <div>
       <Background>
-      <h1>Good place recommended for you 🙌</h1>
+        <h1>Good place recommended for you 🙌</h1>
         <ModalWrapper>
           <ImageContainer url={img}>
             <LikeButtonContainer>
@@ -87,11 +83,9 @@ const Modal = (props) => {
             <a href={yelp}> <MoreButton >View more details on Yelp</MoreButton> </a>
             <NextButton onClick={() => {setIndex(index + 1)}} >Find another one for me</NextButton>
           </DetailsContainer>
-
           <CloseButton>
             <Button onClick={() => { props.toggleModal() }}>ⓧ</Button>
           </CloseButton>
-
         </ModalWrapper>
       </Background>
     </div>
